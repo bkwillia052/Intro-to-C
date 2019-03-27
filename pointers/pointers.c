@@ -32,7 +32,7 @@ void string_copy(char *x, char *y)
     Do not use the `strchr` function from the standard library.
 */
 char *find_char(char *str, int c)
-{
+{   
      while (*str != '\0') {
         if (*str == c) {
             return str;
@@ -41,6 +41,8 @@ char *find_char(char *str, int c)
     }
     return NULL;
 }
+
+
 
 /*
     Searches the input string `haystack` for the first instance of
@@ -52,12 +54,30 @@ char *find_char(char *str, int c)
 */
 char *find_string(char *haystack, char *needle)
 {
+    while (*haystack) {
+        
+        char *start = haystack;
+        char *find = needle;
 
+        while (*haystack && *find && *haystack == *find) {
+            haystack++;
+            find++;
+        }
+
+        if (!*find) {
+            return start;
+        }
+        haystack = start + 1;
+    }
+    return NULL;
 }
 
 #ifndef TESTING
 int main(void)
 {
+    char *hello = "Hello";
+    char *world = "World";
+    
     char *found_char = find_char(hello, 'e');
     char *found_string = find_string(world, "or");
 
